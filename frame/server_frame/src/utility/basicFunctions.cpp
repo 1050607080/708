@@ -342,7 +342,7 @@ bool  UnsetBitFlag(uint32* szFlag,int32 len,int32 pos)
 int  IsSetBitFlag(uint32*  szFlag,int32 len,int32 pos)
 {
 	if(pos >= (len*32)){
-		assert(false);
+		//assert(false); 这里会导致宕机，注释掉， delete by har
 		return 0;
 	}
 	int iIdx = pos/32;

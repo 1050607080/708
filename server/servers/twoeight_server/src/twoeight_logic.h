@@ -2,6 +2,7 @@
 #ifndef GAME_TWOEIGHT_LOGIC_HEAD_FILE
 #define GAME_TWOEIGHT_LOGIC_HEAD_FILE
 #include "svrlib.h"
+#include "json/json.h"
 
 namespace game_twoeight
 {
@@ -23,6 +24,10 @@ enum emCardType {
 //游戏逻辑
 struct TwoeightLogic {
 	//函数定义
+
+	// 解析牌类型对应的倍数
+	// return : 最大牌类型的倍数
+	static int ReAnalysisParam(Json::Value &jvalue);
 
 	/// 控制函数 ///
 	// 混乱牌

@@ -2456,7 +2456,7 @@ void protobuf_AssignDesc_client_5flogic_5fmsg_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(msg_game_play_log_rep));
   msg_chat_info_forward_descriptor_ = file->message_type(127);
-  static const int msg_chat_info_forward_offsets_[7] = {
+  static const int msg_chat_info_forward_offsets_[8] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(msg_chat_info_forward, fromid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(msg_chat_info_forward, toid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(msg_chat_info_forward, online_),
@@ -2464,6 +2464,7 @@ void protobuf_AssignDesc_client_5flogic_5fmsg_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(msg_chat_info_forward, fromname_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(msg_chat_info_forward, toname_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(msg_chat_info_forward, time_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(msg_chat_info_forward, mtype_),
   };
   msg_chat_info_forward_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -3595,48 +3596,49 @@ void protobuf_AddDesc_client_5flogic_5fmsg_2eproto() {
     "\213\001\n\025msg_game_play_log_rep\022\020\n\010gametype\030\001 "
     "\001(\r\022\016\n\006roomid\030\002 \001(\r\022\021\n\tgamestate\030\003 \001(\r\022\023"
     "\n\013remain_time\030\004 \001(\r\022(\n\010play_log\030\005 \001(\0132\026."
-    "net.msg_game_play_log\"\210\001\n\025msg_chat_info_"
+    "net.msg_game_play_log\"\227\001\n\025msg_chat_info_"
     "forward\022\016\n\006fromid\030\001 \001(\r\022\014\n\004toid\030\002 \003(\r\022\016\n"
     "\006online\030\003 \003(\005\022\021\n\tmessagStr\030\004 \001(\014\022\020\n\010from"
     "name\030\005 \001(\014\022\016\n\006toname\030\006 \003(\014\022\014\n\004time\030\007 \001(\004"
-    "\"I\n$msg_brc_control_user_enter_table_req"
-    "\022\017\n\007game_id\030\001 \001(\r\022\020\n\010table_id\030\002 \001(\r\"S\n$m"
-    "sg_brc_control_user_enter_table_rep\022\016\n\006r"
-    "esult\030\001 \001(\r\022\014\n\004area\030\002 \003(\r\022\r\n\005times\030\003 \001(\r"
-    "\"I\n$msg_brc_control_user_leave_table_req"
-    "\022\017\n\007game_id\030\001 \001(\r\022\020\n\010table_id\030\002 \001(\r\"6\n$m"
-    "sg_brc_control_user_leave_table_rep\022\016\n\006r"
-    "esult\030\001 \001(\r\"5\n&msg_brc_control_force_lea"
-    "ve_banker_req\022\013\n\003uid\030\001 \001(\r\"E\n&msg_brc_co"
-    "ntrol_force_leave_banker_rep\022\013\n\003uid\030\001 \001("
-    "\r\022\016\n\006result\030\002 \001(\r\"I\n\035msg_brc_control_are"
-    "a_info_req\022\013\n\003uid\030\001 \001(\r\022\014\n\004area\030\002 \003(\r\022\r\n"
-    "\005times\030\003 \001(\r\"L\n\035msg_brc_control_area_inf"
-    "o_rep\022\016\n\006result\030\001 \001(\r\022\014\n\004area\030\002 \003(\r\022\r\n\005t"
-    "imes\030\003 \001(\r\"9\n$msg_brc_control_total_robo"
-    "t_bet_info\022\021\n\tarea_info\030\001 \003(\003\":\n%msg_brc"
-    "_control_total_player_bet_info\022\021\n\tarea_i"
-    "nfo\030\001 \003(\003\"\320\001\n\033brc_control_player_bet_inf"
-    "o\022\013\n\003uid\030\001 \001(\r\022\021\n\tarea_info\030\002 \003(\003\022\021\n\ttot"
-    "al_bet\030\003 \001(\003\022\024\n\014curr_day_win\030\004 \001(\003\022\022\n\nwi"
-    "n_number\030\005 \001(\r\022\023\n\013lose_number\030\006 \001(\r\022\021\n\tt"
-    "otal_win\030\007 \001(\003\022\014\n\004coin\030\010 \001(\003\022\014\n\004name\030\t \001"
-    "(\014\022\020\n\010ismaster\030\n \001(\r\"c\n&msg_brc_control_"
-    "single_player_bet_info\0229\n\017player_bet_inf"
-    "o\030\001 \001(\0132 .net.brc_control_player_bet_inf"
-    "o\"`\n#msg_brc_control_all_player_bet_info"
-    "\0229\n\017player_bet_list\030\001 \003(\0132 .net.brc_cont"
-    "rol_player_bet_info\"N\n\034brc_control_playe"
-    "r_coin_info\022\013\n\003uid\030\001 \001(\r\022\014\n\004coin\030\002 \001(\003\022\023"
-    "\n\013player_type\030\003 \001(\r\"\217\001\n!msg_brc_control_"
-    "apple_banker_list\0224\n\tbank_info\030\001 \001(\0132!.n"
-    "et.brc_control_player_coin_info\0224\n\tuser_"
-    "info\030\002 \003(\0132!.net.brc_control_player_coin"
-    "_info\"\?\n\035msg_brc_control_game_end_info\022\013"
-    "\n\003uid\030\001 \001(\r\022\021\n\tarea_info\030\002 \003(\r\"@\n msg_br"
-    "c_control_game_status_info\022\016\n\006status\030\001 \001"
-    "(\r\022\014\n\004time\030\002 \001(\r\">\n\037msg_brc_control_flus"
-    "h_area_info\022\014\n\004area\030\001 \003(\r\022\r\n\005times\030\002 \001(\r", 9920);
+    "\022\r\n\005mtype\030\010 \001(\005\"I\n$msg_brc_control_user_"
+    "enter_table_req\022\017\n\007game_id\030\001 \001(\r\022\020\n\010tabl"
+    "e_id\030\002 \001(\r\"S\n$msg_brc_control_user_enter"
+    "_table_rep\022\016\n\006result\030\001 \001(\r\022\014\n\004area\030\002 \003(\r"
+    "\022\r\n\005times\030\003 \001(\r\"I\n$msg_brc_control_user_"
+    "leave_table_req\022\017\n\007game_id\030\001 \001(\r\022\020\n\010tabl"
+    "e_id\030\002 \001(\r\"6\n$msg_brc_control_user_leave"
+    "_table_rep\022\016\n\006result\030\001 \001(\r\"5\n&msg_brc_co"
+    "ntrol_force_leave_banker_req\022\013\n\003uid\030\001 \001("
+    "\r\"E\n&msg_brc_control_force_leave_banker_"
+    "rep\022\013\n\003uid\030\001 \001(\r\022\016\n\006result\030\002 \001(\r\"I\n\035msg_"
+    "brc_control_area_info_req\022\013\n\003uid\030\001 \001(\r\022\014"
+    "\n\004area\030\002 \003(\r\022\r\n\005times\030\003 \001(\r\"L\n\035msg_brc_c"
+    "ontrol_area_info_rep\022\016\n\006result\030\001 \001(\r\022\014\n\004"
+    "area\030\002 \003(\r\022\r\n\005times\030\003 \001(\r\"9\n$msg_brc_con"
+    "trol_total_robot_bet_info\022\021\n\tarea_info\030\001"
+    " \003(\003\":\n%msg_brc_control_total_player_bet"
+    "_info\022\021\n\tarea_info\030\001 \003(\003\"\320\001\n\033brc_control"
+    "_player_bet_info\022\013\n\003uid\030\001 \001(\r\022\021\n\tarea_in"
+    "fo\030\002 \003(\003\022\021\n\ttotal_bet\030\003 \001(\003\022\024\n\014curr_day_"
+    "win\030\004 \001(\003\022\022\n\nwin_number\030\005 \001(\r\022\023\n\013lose_nu"
+    "mber\030\006 \001(\r\022\021\n\ttotal_win\030\007 \001(\003\022\014\n\004coin\030\010 "
+    "\001(\003\022\014\n\004name\030\t \001(\014\022\020\n\010ismaster\030\n \001(\r\"c\n&m"
+    "sg_brc_control_single_player_bet_info\0229\n"
+    "\017player_bet_info\030\001 \001(\0132 .net.brc_control"
+    "_player_bet_info\"`\n#msg_brc_control_all_"
+    "player_bet_info\0229\n\017player_bet_list\030\001 \003(\013"
+    "2 .net.brc_control_player_bet_info\"N\n\034br"
+    "c_control_player_coin_info\022\013\n\003uid\030\001 \001(\r\022"
+    "\014\n\004coin\030\002 \001(\003\022\023\n\013player_type\030\003 \001(\r\"\217\001\n!m"
+    "sg_brc_control_apple_banker_list\0224\n\tbank"
+    "_info\030\001 \001(\0132!.net.brc_control_player_coi"
+    "n_info\0224\n\tuser_info\030\002 \003(\0132!.net.brc_cont"
+    "rol_player_coin_info\"\?\n\035msg_brc_control_"
+    "game_end_info\022\013\n\003uid\030\001 \001(\r\022\021\n\tarea_info\030"
+    "\002 \003(\r\"@\n msg_brc_control_game_status_inf"
+    "o\022\016\n\006status\030\001 \001(\r\022\014\n\004time\030\002 \001(\r\">\n\037msg_b"
+    "rc_control_flush_area_info\022\014\n\004area\030\001 \003(\r"
+    "\022\r\n\005times\030\002 \001(\r", 9935);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "client_logic_msg.proto", &protobuf_RegisterTypes);
   msg_heart_test::default_instance_ = new msg_heart_test();
@@ -33700,6 +33702,7 @@ const int msg_chat_info_forward::kMessagStrFieldNumber;
 const int msg_chat_info_forward::kFromnameFieldNumber;
 const int msg_chat_info_forward::kTonameFieldNumber;
 const int msg_chat_info_forward::kTimeFieldNumber;
+const int msg_chat_info_forward::kMtypeFieldNumber;
 #endif  // !_MSC_VER
 
 msg_chat_info_forward::msg_chat_info_forward()
@@ -33722,6 +33725,7 @@ void msg_chat_info_forward::SharedCtor() {
   messagstr_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   fromname_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   time_ = GOOGLE_ULONGLONG(0);
+  mtype_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -33775,6 +33779,7 @@ void msg_chat_info_forward::Clear() {
       }
     }
     time_ = GOOGLE_ULONGLONG(0);
+    mtype_ = 0;
   }
   toid_.Clear();
   online_.Clear();
@@ -33903,6 +33908,22 @@ bool msg_chat_info_forward::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(64)) goto parse_mtype;
+        break;
+      }
+
+      // optional int32 mtype = 8;
+      case 8: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_mtype:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &mtype_)));
+          set_has_mtype();
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -33965,6 +33986,11 @@ void msg_chat_info_forward::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt64(7, this->time(), output);
   }
 
+  // optional int32 mtype = 8;
+  if (has_mtype()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(8, this->mtype(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -34015,6 +34041,11 @@ void msg_chat_info_forward::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(7, this->time(), target);
   }
 
+  // optional int32 mtype = 8;
+  if (has_mtype()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(8, this->mtype(), target);
+  }
+
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -34052,6 +34083,13 @@ int msg_chat_info_forward::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt64Size(
           this->time());
+    }
+
+    // optional int32 mtype = 8;
+    if (has_mtype()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->mtype());
     }
 
   }
@@ -34123,6 +34161,9 @@ void msg_chat_info_forward::MergeFrom(const msg_chat_info_forward& from) {
     if (from.has_time()) {
       set_time(from.time());
     }
+    if (from.has_mtype()) {
+      set_mtype(from.mtype());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -34153,6 +34194,7 @@ void msg_chat_info_forward::Swap(msg_chat_info_forward* other) {
     std::swap(fromname_, other->fromname_);
     toname_.Swap(&other->toname_);
     std::swap(time_, other->time_);
+    std::swap(mtype_, other->mtype_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

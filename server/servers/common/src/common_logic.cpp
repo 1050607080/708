@@ -259,6 +259,7 @@ bool    CCommonLogic::IsOpenGame(uint16 gameType)
     return false;
 }
 
+// 统计前20局的百人游戏 (客户端显示神算子 大富豪)
 bool    CCommonLogic::IsBaiRenCount(uint16 gameType)
 {
 	switch (gameType)
@@ -269,6 +270,7 @@ bool    CCommonLogic::IsBaiRenCount(uint16 gameType)
 	//case net::GAME_CATE_DICE:
 	case net::GAME_CATE_WAR:
 	case net::GAME_CATE_FIGHT:
+	case net::GAME_CATE_TWOEIGHT:
 	{
 		return true;
 	}break;

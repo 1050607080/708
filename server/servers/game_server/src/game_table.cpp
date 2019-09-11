@@ -428,7 +428,7 @@ bool    CGameTable::CanSitDown(CGamePlayer* pPlayer,uint16 chairID)
 		return false;
 	}
 	uint16 gameType = m_pHostRoom->GetGameType();
-	if (CCommonLogic::IsBaiRenCount(gameType))
+	if (CCommonLogic::IsBaiRenCount(gameType) && gameType != net::GAME_CATE_TWOEIGHT)
 	{
 		{
 			LOG_DEBUG("bairencount - dont sit down - roomid:%d,tableid:%d,uid:%d,isrobot:%d,chairID:%d", GetRoomID(), GetTableID(), pPlayer->GetUID(), pPlayer->IsRobot(), chairID);

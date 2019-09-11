@@ -11758,6 +11758,13 @@ class msg_chat_info_forward : public ::google::protobuf::Message {
   inline ::google::protobuf::uint64 time() const;
   inline void set_time(::google::protobuf::uint64 value);
 
+  // optional int32 mtype = 8;
+  inline bool has_mtype() const;
+  inline void clear_mtype();
+  static const int kMtypeFieldNumber = 8;
+  inline ::google::protobuf::int32 mtype() const;
+  inline void set_mtype(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:net.msg_chat_info_forward)
  private:
   inline void set_has_fromid();
@@ -11768,19 +11775,22 @@ class msg_chat_info_forward : public ::google::protobuf::Message {
   inline void clear_has_fromname();
   inline void set_has_time();
   inline void clear_has_time();
+  inline void set_has_mtype();
+  inline void clear_has_mtype();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > toid_;
   ::google::protobuf::RepeatedField< ::google::protobuf::int32 > online_;
   ::std::string* messagstr_;
+  ::google::protobuf::uint32 fromid_;
+  ::google::protobuf::int32 mtype_;
   ::std::string* fromname_;
   ::google::protobuf::RepeatedPtrField< ::std::string> toname_;
   ::google::protobuf::uint64 time_;
-  ::google::protobuf::uint32 fromid_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(8 + 31) / 32];
 
   friend void  protobuf_AddDesc_client_5flogic_5fmsg_2eproto();
   friend void protobuf_AssignDesc_client_5flogic_5fmsg_2eproto();
@@ -20318,6 +20328,28 @@ inline ::google::protobuf::uint64 msg_chat_info_forward::time() const {
 inline void msg_chat_info_forward::set_time(::google::protobuf::uint64 value) {
   set_has_time();
   time_ = value;
+}
+
+// optional int32 mtype = 8;
+inline bool msg_chat_info_forward::has_mtype() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void msg_chat_info_forward::set_has_mtype() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void msg_chat_info_forward::clear_has_mtype() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void msg_chat_info_forward::clear_mtype() {
+  mtype_ = 0;
+  clear_has_mtype();
+}
+inline ::google::protobuf::int32 msg_chat_info_forward::mtype() const {
+  return mtype_;
+}
+inline void msg_chat_info_forward::set_mtype(::google::protobuf::int32 value) {
+  set_has_mtype();
+  mtype_ = value;
 }
 
 // -------------------------------------------------------------------

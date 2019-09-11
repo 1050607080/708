@@ -12,6 +12,8 @@ namespace game_twoeight
 		0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A,
 	};
 
+	vector<int> g_vecMultiple = {0, 1, 2, 3, 4, 5}; // 牌类型->牌倍数
+
 	//////////////////////////////////////////////////////////////////////////
 
 	// 值大小比较
@@ -24,6 +26,28 @@ namespace game_twoeight
 		if (firstCardValue > nextCardValue)
 			return -1;
 		return 0;
+	}
+
+	// 解析牌类型对应的倍数
+	int TwoeightLogic::ReAnalysisParam(Json::Value &jvalue) {
+		if (jvalue.isMember("mp1"))
+			g_vecMultiple[1] = jvalue["mp1"].asInt();
+		if (jvalue.isMember("mp2"))
+			g_vecMultiple[2] = jvalue["mp2"].asInt();
+		if (jvalue.isMember("mp3"))
+			g_vecMultiple[3] = jvalue["mp3"].asInt();
+		if (jvalue.isMember("mp4"))
+			g_vecMultiple[4] = jvalue["mp4"].asInt();
+		if (jvalue.isMember("mp5"))
+			g_vecMultiple[5] = jvalue["mp5"].asInt();
+
+		int maxMultiple = g_vecMultiple[5];
+		for (int i = 1; i < 5; ++i)
+			if (g_vecMultiple[i] > maxMultiple)
+				maxMultiple = g_vecMultiple[i];
+		LOG_DEBUG("maxMultiple:%d, g_vecMultiple:%d-%d-%d-%d-%d", maxMultiple, g_vecMultiple[1],
+			g_vecMultiple[2], g_vecMultiple[3], g_vecMultiple[4], g_vecMultiple[5]);
+		return maxMultiple;
 	}
 
 	// 混乱牌
@@ -60,8 +84,6 @@ namespace game_twoeight
 		return emCardTypePoint;
 	}
 
-
-
 	// 大小比较
 	int TwoeightLogic::CompareCard(const uint8 cbFirstCardData[SINGLE_CARD_NUM], const uint8 cbNextCardData[SINGLE_CARD_NUM], int &multiple) {
 		// 获取牌型
@@ -69,20 +91,33 @@ namespace game_twoeight
 		int cbNextCardType = GetCardType(cbNextCardData);
 
 		if (cbFirstCardType > cbNextCardType) {
-			multiple = cbFirstCardType;
+			multiple = g_vecMultiple[cbFirstCardType];
 			return -1;
 		}
 		if (cbFirstCardType < cbNextCardType) {
-			multiple = cbNextCardType;
+			multiple = g_vecMultiple[cbNextCardType];
 			return 1;
 		}
 		if (cbFirstCardType == emCardTypeWhiteLeopard || cbFirstCardType == emCardTypeTwoeight)
 			return 0;
 
-		multiple = cbFirstCardType;
+		multiple = g_vecMultiple[cbFirstCardType];
 		if (cbFirstCardType == emCardTypeLeopard)
 			return CompareCardValue(cbFirstCardData[0], cbNextCardData[0]);
 		// 获取牌组点数,再比较
-		return CompareCardValue(GetCardPoint(cbFirstCardData), GetCardPoint(cbNextCardData));
+		int pointFirst = GetCardPoint(cbFirstCardData);
+		int pointNext = GetCardPoint(cbNextCardData);
+		if (pointFirst == pointNext) {
+			uint8 maxFirst = cbFirstCardData[0] % 10; // 白板的点数是0点，要对10取模
+			uint8 iTemp = cbFirstCardData[1] % 10;
+			if (maxFirst < iTemp)
+				maxFirst = iTemp;
+			uint8 maxNext = cbNextCardData[0] % 10;
+			iTemp = cbNextCardData[1] % 10;
+			if (maxNext < iTemp)
+				maxNext = iTemp;
+			return CompareCardValue(maxFirst, maxNext);
+		}
+		return CompareCardValue(pointFirst, pointNext);
 	}
 }

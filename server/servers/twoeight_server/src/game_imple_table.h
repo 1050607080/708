@@ -11,7 +11,7 @@
 #include "svrlib.h"
 #include "twoeight_logic.h"
 
-using namespace svrlib;
+
 using namespace std;
 using namespace game_twoeight;
 
@@ -175,10 +175,12 @@ protected:
 	int64   CalculateScore();
 
 	// 推断赢家处理 add by har
+	// bWinFlag out : 区域胜利标识
+	// cbMultiple out : 区域牌型倍数
 	// cbTableCardArray ：根据此扑克推断
-	void DeduceWinnerDeal(bool &bWinShun, bool &bWinTian, bool &bWinDi, int &ShunMultiple, int &TianMultiple, int &diMultiple, uint8 cbTableCardArray[][SINGLE_CARD_NUM]);
+	void DeduceWinnerDeal(bool bWinFlag[AREA_COUNT], int cbMultiple[AREA_COUNT], uint8 cbTableCardArray[MAX_SEAT_INDEX][SINGLE_CARD_NUM]);
 	// 推断赢家
-	void DeduceWinner(bool &bWinShun, bool &bWinTian, bool &bWinDi, int &ShunMultiple, int &TianMultiple, int &diMultiple);
+	void DeduceWinner(bool bWinFlag[AREA_COUNT], int cbMultiple[AREA_COUNT]);
 
 
 	// 申请上庄条件
@@ -200,41 +202,51 @@ protected:
 	void    CheckRobotApplyBanker(); // 检查机器人申请庄家
 
 
-	// 将牌组索引按小到大排序
-	// cbTableCardArray : 要排序的牌组的引用
-	// vSortCardIndexs out : 保存排序好的牌组索引
-	void SortCardIndexs(uint8 cbTableCardArray[][SINGLE_CARD_NUM], vector<uint8> &vSortCardIndexs);
 	// 指定牌组是否满足规则
 	// cbTableCardArray : 指定牌组的引用
-	bool IsCurTableCardRuleAllow(uint8 cbTableCardArray[][SINGLE_CARD_NUM]);
-	// 获取非机器人玩家赢金币数
+	bool IsCurTableCardRuleAllow(uint8 cbTableCardArray[MAX_SEAT_INDEX][SINGLE_CARD_NUM]);
+	// 获得单个玩家总赢分实现
+	int64 GetSinglePlayerWinScoreDeal(uint32 playerUid, int cbMultiple[AREA_COUNT], bool bWinFlag[AREA_COUNT], int64 &lBankerWinScore);
+	// 获取庄家和非机器人玩家赢金币数
     // cbTableCardArray : 牌组的引用
+    // bankerWinScore out : 庄家赢数
     // return : 非机器人玩家赢金币数
-	int64 GetPlayerWinScore(uint8 cbTableCardArray[][SINGLE_CARD_NUM]);
+	int64 GetBankerAndPlayerWinScore(uint8 cbTableCardArray[MAX_SEAT_INDEX][SINGLE_CARD_NUM], int64 &lBankerWinScore);
+	// 获取玩家(非庄家)赢金币数
+	// cbTableCardArray : 牌组的引用
+	// uid : 玩家id
+	// return : 非庄玩家赢金币数
+	int64 GetSinglePlayerWinScore(uint8 cbTableCardArray[MAX_SEAT_INDEX][SINGLE_CARD_NUM], uint32 uid);
+
+	// 设置庄家赢或输 add by har
+    // isWin : true 赢  false 输
+	// return : true 设置成功  false 设置失败
+	bool SetBankerWinLose(bool isWin);
+	// 设置控制玩家赢或输
+	// isWin : true 赢  false 输
+	// return : true 设置成功  false 设置失败
+	bool SetControlPlayerWinLose(uint32 control_uid, bool isWin);
 	// 设置点杀
 	// return : 是否成功设置了点杀
 	bool SetTableCardPointKill();
-
-
-	// 设置控制玩家赢
-	bool SetControlPlayerWin(uint32 control_uid);
-	// 设置控制玩家输
-	bool SetControlPlayerLost(uint32 control_uid);
 	// 设置库存输赢
 	// return  true 触发库存输赢  false 未触发
 	bool SetStockWinLose();
 
 	bool GetPlayerGameRest(uint32 uid);
 
-	// 取得桌面4组牌的小到大排序
+	// 取得桌面4组牌的小到大排序实现
+    // cbTableCardArray:要排序的MAX_SEAT_INDEX组牌
+    // uArSortIndex out ： 保存牌组大小从小到大的排序数组
+	void GetCardSortIndexImpl(uint8 cbTableCardArray[MAX_SEAT_INDEX][SINGLE_CARD_NUM], uint8 uArSortIndex[MAX_SEAT_INDEX]);
+
+	// 取得桌面4组牌的小到大排序，默认使用m_cbTableCardArray牌组
 	// uArSortIndex out ： 保存牌组大小从小到大的排序数组
-	void	GetCardSortIndex(uint8 uArSortIndex[]);
+	void GetCardSortIndex(uint8 uArSortIndex[MAX_SEAT_INDEX]);
 
 	bool	GetJettonSortIndex(uint32 uid, uint8 uArSortIndex[]);
 
 	void    AddPlayerToBlingLog();
-
-	//void    GetAllRobotPlayer(vector<CGamePlayer*> & robots);
 
 
 	/// 游戏变量 ///
@@ -278,7 +290,7 @@ protected:
 	bool                            m_isTableCardPointKill[MAX_SEAT_INDEX]{0}; // 是否点杀
 
 	/// 控制变量 ///
-	int								m_iMaxJettonRate = emCardTypeWhiteLeopard; // 最大下注倍数
+	int								m_iMaxJettonRate = 0; // 最大下注倍数
 
 	/// 组件变量 ///
 	//CTwoeightLogic					m_GameLogic;							//游戏逻辑
@@ -294,7 +306,7 @@ protected:
 	vector<stTwoeightGameRecord>	m_vecGamePlayRecord;	                //游戏记录
 
 	bool IsInTableRobot(uint32 uid, CGamePlayer *pPlayer);
-	void OnRobotJettonDeal(vector<tagRobotPlaceJetton> &vecRobotPlaceJetton, CGamePlayer *pPlayer);
+	void OnRobotJettonDeal(CGamePlayer *pPlayer, bool isChairPlayer);
 	void OnChairRobotJetton(); // 椅子机器人押注准备
 	// 定时器触发机器人下注
 	// vecobotPlaceJetton : 下注列表

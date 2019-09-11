@@ -418,7 +418,7 @@ int CGameFishingTable::OnGameMessage(CGamePlayer* pPlayer,uint16 cmdID, const ui
 				return 0;
 
 			//判断当前玩家的钱是否足够
-			int64 player_score = pPlayer->GetAccountValue(emACC_VALUE_COIN);
+			int64 player_score = GetPlayerCurScore(pPlayer); //pPlayer->GetAccountValue(emACC_VALUE_COIN); modify by har
 			int64 curr_score = player_score + m_lTableScore[req_msg.seat_id()] - req_msg.bullet_bot();
 			if (curr_score < 0)
 			{
@@ -738,7 +738,7 @@ void CGameFishingTable::OnUserHitFish(uint32 seat_id, uint32 bullet_id, uint32 b
 				msg.set_bullet_bot(bullet_bot);
 				msg.set_fish_id(fish_no);
 				msg.set_fish_multi(ret);
-				int64 player_score = pPlayer->GetAccountValue(emACC_VALUE_COIN);
+				int64 player_score = GetPlayerCurScore(pPlayer); // pPlayer->GetAccountValue(emACC_VALUE_COIN); modify by har
 				msg.set_score(player_score + m_lTableScore[seat_id]);
 			
 				LOG_DEBUG("BBB kill fish success - uid:%d seat_id:%d fish_type:%d ret:%d add_value:%d table_score:%lld set_score:%lld is_novice_ctrl:%d is_aw_ctrl:%d", 

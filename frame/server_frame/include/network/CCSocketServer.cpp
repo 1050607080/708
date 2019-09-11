@@ -90,10 +90,11 @@ int CCSocketServer::proc_accept (struct sockaddr_in* peer, socklen_t* peerSize)
 
 			if (errno == EAGAIN)
 	    	{
+				LOG_DEBUG("*STEP: accept new connection EAGAIN, bind[%s:%d], netfd[%d], msg[%m], errno:%d", _bindAddr, _bindPort, netfd, errno);
 	       	 	return -1;
 	   	 	}
 
-			//log_error ("*STEP: accept new connection failed, client[%s:%d], fd[%d], msg[%m]", _bindAddr, _bindPort, netfd);
+			LOG_ERROR("*STEP: accept new connection failed2, bind[%s:%d], netfd[%d], msg[%m], errno:%d", _bindAddr, _bindPort, netfd, errno);
 			return -1;
 	    }
 
@@ -101,12 +102,12 @@ int CCSocketServer::proc_accept (struct sockaddr_in* peer, socklen_t* peerSize)
 			&&  ((flags = fcntl(newfd, F_GETFL, 0)) < 0
 			||  fcntl(newfd, F_SETFL, flags | O_NONBLOCK) < 0) )
 		{
-			//log_error("operate on socket %d error connect ", newfd);
+			LOG_ERROR("operate on socket %d error connect, bind[%s:%d], errno:%d", newfd, _bindAddr, _bindPort, errno);
 			close(newfd);
 			continue;
 		}
 
-		//log_debug ("proc_accept: accept new connection fd[%d]", newfd);	        
+		LOG_DEBUG("proc_accept: accept new connection bind[%s:%d], newfd[%d], netfd[%d]", _bindAddr, _bindPort, newfd, netfd);
 	    _fd_array[i] = newfd;
 	    _newfd_cnt++;
 	}

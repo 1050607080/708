@@ -1525,6 +1525,26 @@ int CGameRoom::CheckRoommParambyGameType(uint32 gametype, string param) {
 	else if (gametype == net::GAME_CATE_FISHING)
 	{
 	} else if (gametype == net::GAME_CATE_TWOEIGHT) {
+		if (!jvalue.isMember("mp1")) { bflag = 1800 /*false*/; }
+		if (!jvalue.isMember("mp2")) { bflag = 1801 /*false*/; }
+		if (!jvalue.isMember("mp3")) { bflag = 1802 /*false*/; }
+		if (!jvalue.isMember("mp4")) { bflag = 1803 /*false*/; }
+		if (!jvalue.isMember("mp5")) { bflag = 1804 /*false*/; }
+		if (!jvalue.isMember("awlmc")) { bflag = 1805 /*false*/; }
+		if (!jvalue.isMember("awllc")) { bflag = 1806 /*false*/; }
+		if (!jvalue.isMember("rzapwm")) { bflag = 1807 /*false*/; }
+		if (!jvalue.isMember("rzaplr")) { bflag = 1808 /*false*/; }
+		if (bflag == 0) {
+			if (!jvalue["mp1"].isIntegral()) { bflag = 1850 /*false*/; }
+			if (!jvalue["mp2"].isIntegral()) { bflag = 1851 /*false*/; }
+			if (!jvalue["mp3"].isIntegral()) { bflag = 1852 /*false*/; }
+			if (!jvalue["mp4"].isIntegral()) { bflag = 1853 /*false*/; }
+			if (!jvalue["mp5"].isIntegral()) { bflag = 1854 /*false*/; }
+			if (!jvalue["awlmc"].isIntegral()) { bflag = 1855 /*false*/; }
+			if (!jvalue["awllc"].isIntegral()) { bflag = 1856 /*false*/; }
+			if (!jvalue["rzapwm"].isIntegral()) { bflag = 1857 /*false*/; }
+			if (!jvalue["rzaplr"].isIntegral()) { bflag = 1858 /*false*/; }
+		}
 	} else {
 		bflag = 1 /*false*/;
 	}
